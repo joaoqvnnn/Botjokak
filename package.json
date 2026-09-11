@@ -1,0 +1,181 @@
+{
+  "name": "larizinha-store-bot",
+  "version": "4.1.0",
+  "description": "Sistema completo Larizinha Store — Bot Admin + Bot Cliente + Mini App + Website + WhatsApp + IA. Interface de mensagem única (edit-in-place) em todo o painel administrativo.",
+  "author": "Larizinha Store",
+  "license": "UNLICENSED",
+  "private": true,
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "start:admin": "node src/admin-bot/index.js",
+    "start:client": "node src/client-bot/index.js",
+    "start:web": "node src/web/server.js",
+    "start:whatsapp": "node src/whatsapp/server.js",
+    "start:worker": "node src/workers/index.js",
+
+    "dev": "nodemon --watch src --exec node src/index.js",
+    "dev:admin": "nodemon --watch src/admin-bot --exec node src/admin-bot/index.js",
+    "dev:client": "nodemon --watch src/client-bot --exec node src/client-bot/index.js",
+    "dev:web": "nodemon --watch src/web --exec node src/web/server.js",
+
+    "pm2:start": "pm2 start ecosystem.config.js",
+    "pm2:restart": "pm2 restart ecosystem.config.js",
+    "pm2:stop": "pm2 stop ecosystem.config.js",
+    "pm2:logs": "pm2 logs",
+
+    "db:migrate": "sequelize-cli db:migrate",
+    "db:migrate:undo": "sequelize-cli db:migrate:undo",
+    "db:seed": "sequelize-cli db:seed:all",
+    "db:seed:undo": "sequelize-cli db:seed:undo:all",
+    "db:reset": "sequelize-cli db:drop && sequelize-cli db:create && sequelize-cli db:migrate && sequelize-cli db:seed:all",
+
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "format": "prettier --write \"src/**/*.js\" \"src/**/*.json\"",
+
+    "test": "jest --runInBand --detectOpenHandles",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+
+    "create:admin": "node scripts/create-admin.js",
+    "check:env": "node scripts/check-env.js",
+    "test:telegram": "node scripts/test-telegram.js",
+    "test:pix": "node scripts/test-pix.js",
+    "test:whatsapp": "node scripts/test-whatsapp.js",
+    "test:email": "node scripts/test-email.js",
+    "test:ai": "node scripts/test-ai.js",
+    "test:all": "node scripts/test-all.js",
+
+    "backup:db": "node scripts/backup-db.js",
+    "restore:db": "node scripts/restore-db.js"
+  },
+
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.3",
+    "@telegraf/session": "^1.1.0",
+    "axios": "^1.7.7",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "bull": "^4.16.3",
+    "bullmq": "^5.13.0",
+    "cheerio": "^1.0.0",
+    "compression": "^1.7.4",
+    "connect-redis": "^7.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
+    "express-validator": "^7.2.0",
+    "helmet": "^8.0.0",
+    "html-pdf-node": "^1.0.8",
+    "i18next": "^23.15.1",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "lru-cache": "^11.0.1",
+    "mercadopago": "^2.0.15",
+    "moment": "^2.30.1",
+    "moment-timezone": "^0.5.45",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "nanoid": "^3.3.7",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^6.9.15",
+    "openai": "^4.67.3",
+    "pdfkit": "^0.15.0",
+    "pg": "^8.13.0",
+    "pg-hstore": "^2.3.4",
+    "pino": "^9.4.0",
+    "pino-pretty": "^11.2.2",
+    "qrcode": "^1.5.4",
+    "rate-limiter-flexible": "^5.0.3",
+    "redis": "^4.7.0",
+    "sequelize": "^6.37.3",
+    "sharp": "^0.33.5",
+    "slugify": "^1.6.6",
+    "socket.io": "^4.8.0",
+    "telegraf": "^4.16.3",
+    "telegraf-i18n": "^6.6.0",
+    "telegraf-session-redis": "^6.3.0",
+    "uuid": "^10.0.0",
+    "validator": "^13.12.0",
+    "winston": "^3.15.0",
+    "winston-daily-rotate-file": "^5.0.0",
+    "zod": "^3.23.8"
+  },
+
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-node": "^11.1.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "prettier": "^3.3.3",
+    "sequelize-cli": "^6.6.2",
+    "supertest": "^7.0.0"
+  },
+
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8",
+    "utf-8-validate": "^6.0.4"
+  },
+
+  "overrides": {
+    "semver": "^7.6.3"
+  },
+
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/index.js",
+      "!src/scripts/**"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/logs/",
+      "/tmp/"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.js"
+    ],
+    "testTimeout": 30000
+  },
+
+  "keywords": [
+    "telegram",
+    "bot",
+    "telegraf",
+    "ecommerce",
+    "pix",
+    "mercadopago",
+    "whatsapp",
+    "admin-panel",
+    "larizinha-store"
+  ],
+
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larizinha/larizinha-store-bot.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/larizinha/larizinha-store-bot/issues"
+  },
+
+  "homepage": "https://larizinhastore.com"
+}
